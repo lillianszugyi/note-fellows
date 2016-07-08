@@ -1,0 +1,122 @@
+#topSpacing {
+  padding-top: 3%;
+}
+
+#logo {
+  height:10%;
+  width:10%;
+  float:right;
+  padding: 1em;
+}
+
+.smallLogo {
+  height: 7%;
+  width: 7%;
+  float:right;
+  padding: 1em;
+}
+
+.leftspacing {
+  padding-left: 1em;
+}
+
+.navspacing {
+  margin-left: 1em;
+}
+
+#navBrowser {
+  overflow-y: scroll;
+  height: 20%;
+  resize: none;
+  background-color: rgba(255, 255, 255, 0.4);
+
+}
+
+#noteList li p:first-child {
+  font-weight: bold;
+}
+
+#noteList li p:nth-child(2) {
+  font-style: italic;
+  font-size: 12px;
+}
+
+#titleTextArea {
+  min-height:38px;
+  height:40px;
+  width:500px;
+}
+
+#textInput {
+  height:500px;
+  width:805px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding-left:30px;
+}
+
+#contentTextArea {
+  width:500px;
+  height:300px;
+}
+
+.alignButtons {
+  margin-left:50px;
+}
+
+#tagForm {
+  color: #C2281E;
+}
+
+.tagColor {
+  color: #000000;
+}
+
+.profile-pic {
+  height:10em;
+  width:10em;
+  border-radius: 50%;
+  border: 1px solid #FFFFFF;
+  float: right;
+}
+
+.aboutAlign {
+  text-align: center;
+}
+
+.info {
+  margin-top:55px;
+  padding-right: 100px;
+}
+
+.info:last-child {
+  padding-bottom: 70px;
+}
+
+#noteWrapper {
+  background-color: #FFFFFF;
+  padding-left: 30px;
+  padding-top: 10px;
+}
+
+.labelColor {
+  color: #000000;
+}
+
+.whiteText {
+  color:#FFFFFF;
+}
+
+.changeFont {
+  font-size: 24px;
+  text-align: left;
+}
+
+@media only screen and (min-width:680px){
+  .background {
+    background-image: url('../images/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+
+}

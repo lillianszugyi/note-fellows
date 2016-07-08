@@ -1,0 +1,39 @@
+body {
+  background-color: #333333;
+  font-family: 'Lato', sans-serif;
+}
+
+header, footer {
+  background-color: black;
+  font-family: 'Titillium Web', sans-serif;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.background {
+  background-image: url('../images/background.jpg');
+  background-position: center;
+  max-width: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: #FFFFFF;
+  margin-bottom: 40px;
+}
+
+/*li {
+  border-bottom: 1px solid black;
+  margin-bottom:0px;
+  padding-left: 10px;
+  padding-top: 10px;
+}*/
+
+/*li:hover {
+  background-color: #E0DDD1;
+}*/
+
+legend {
+  padding-top: 20px;
+}

@@ -1,4 +1,4 @@
-html, body {
+/*html, body {
   background-color: #333333;
   font-family: 'Lato', sans-serif;
 }
@@ -18,7 +18,7 @@ footer {
   background-size: 100%;
   background-repeat: none;
   height: 600px;
-}
+}*/
 #content {
   background-image: url('../images/background.jpg');
   background-position: center;
@@ -26,17 +26,17 @@ footer {
   background-repeat: none;
   height: 600px;
 }
-.borders {
+/*.borders {
   border: 2px solid black;
-}
-h1 {
+}*/
+/*h1 {
   color: #FFFFFF;
   margin-bottom: 40px;
 }
 nav {
   margin-top:15px;
-}
-#topSpacing {
+}*/
+/*#topSpacing {
   padding-top: 30px;
 }
 #logo {
@@ -50,8 +50,8 @@ nav {
   padding-right: 10px;
   padding-top: 2px;
   float:right;
-}
-.leftspacing {
+}*/
+/*.leftspacing {
   padding-left: 30px;
 }
 .navspacing {
@@ -62,8 +62,8 @@ nav {
   height: 500px;
   resize: none;
   background-color: #ffffff;
-}
-ul {
+}*/
+/*ul {
   list-style: none;
 }
 li {
@@ -74,9 +74,9 @@ li {
 }
 li:hover {
   background-color: #E0DDD1;
-}
+}*/
 
-#noteList li p:first-child {
+/*#noteList li p:first-child {
   font-weight: bold;
 }
 
@@ -100,8 +100,8 @@ li:hover {
 #contentTextArea {
   width:500px;
   height:300px;
-}
-.button,
+}*/
+/*.button,
 button,
 input[type="submit"],
 input[type="reset"],
@@ -131,19 +131,12 @@ input[type="reset"].button-primary,
 input[type="button"].button-primary {
   color: #FFF;
   background-color: #CF3328;
-  border-color: #CF3328; }
-.button.button-primary:hover,
+  border-color: #CF3328; }*/
+/*.button.button-primary:hover,
 button.button-primary:hover,
 input[type="submit"].button-primary:hover,
 input[type="reset"].button-primary:hover,
-<<<<<<< HEAD
-input[type="button"].button-primary:hover, /*{
-  background-color: #C2281E;
-}*/
-=======
-input[type="button"].button-primary:hover,
-
->>>>>>> 7dfb10320deda3d081572fd4658cde2a45aa14aa
+input[type="button"].button-primary:hover, 
 .button.button-primary:focus,
 button.button-primary:focus,
 input[type="submit"].button-primary:focus,
@@ -151,9 +144,9 @@ input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
   color: #FFF;
   background-color: #C2281E;
-  border-color: #C2281E; }
+  border-color: #C2281E; }*/
 
-.alignButtons {
+/*.alignButtons {
   margin-left:50px;
 }
 #tagForm {
@@ -174,9 +167,9 @@ input[type="button"].button-primary:focus {
 .info {
   margin-top:55px;
   padding-right: 100px;
-}
+}*/
 
-.info:last-child {
+/*.info:last-child {
   padding-bottom: 70px;
 }
 #noteWrapper {
@@ -193,9 +186,8 @@ input[type="button"].button-primary:focus {
 .changeFont {
   font-size: 24px;
   text-align: left;
-}
+}*/
 
-legend {
+/*legend {
   padding-top: 20px;
-}
-
+}*/

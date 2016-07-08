@@ -1,20 +1,23 @@
 var userLibrary = [];
 var tempNoteId;
 // this control flow allows us to avoid errors when switching between html pages
-if (document.title === "Welcome to Note Fellows!") {//index.html
-  if (localStorage.userIndex  && localStorage.userLibrary) {
+if (document.title === 'Welcome to Note Fellows!') {//index.html
+  if (localStorage.userIndex && localStorage.userLibrary) {
     var userIndex = JSON.parse(localStorage.getItem('userIndex'));
     userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
   }
   newUserForm();
 }
-else if (document.title === "Note Fellows") {// notes.html
+else if (document.title === 'Note Fellows') {// notes.html
   if (localStorage.userIndex) {
-    var userIndex = JSON.parse(localStorage.getItem('userIndex'));
+    userIndex = JSON.parse(localStorage.getItem('userIndex'));
     userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
-   }
-  var el = document.getElementById('noteList');
-  el.addEventListener('click', function(e) {NoteTracker.getNote(e);},false);
+  }
+  var el = $('noteList').on('click', function(e) {
+    NoteTracker.getNote(e);
+  },false);
+  // document.getElementById('noteList');
+  // el.addEventListener('click', function(e) {NoteTracker.getNote(e);},false);
 }
 /***************OBJECT CONSTRUCTORS***************/
 function User (username, password, library, tagLibrary) {
@@ -32,32 +35,56 @@ function Note (noteTitle, noteContent) {
 }
 /******************GLOBAL FUNCTIONS***************/
 function newUserForm (event) {
-  document.getElementById('loginForm').innerHTML = '';
-  document.getElementById('loginForm').innerHTML = '<form name="loginform" class="whiteText" id="newUser"><fieldset><legend>New User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Create New User"></fieldset></form><input class="button-primary" type="submit" value="Switch to Login Page" id="existingButton">';
-  var newUserEl = document.getElementById('newUser');
-  newUserEl.addEventListener('submit', function(e) {newUser(e);},false);
-  var existingButton = document.getElementById('existingButton');
-  existingButton.addEventListener('click', function(e) {returnUserForm(e);},false);
+  $('#loginForm').empty();
+  // document.getElementById('loginForm').innerHTML = '';
+  $('#loginForm').append('<form name="loginform" class="whiteText" id="newUser"><fieldset><legend>New User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Create New User"></fieldset></form><input class="button-primary" type="submit" value="Switch to Login Page" id="existingButton">');
+  // document.getElementById('loginForm').innerHTML = '<form name="loginform" class="whiteText" id="newUser"><fieldset><legend>New User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Create New User"></fieldset></form><input class="button-primary" type="submit" value="Switch to Login Page" id="existingButton">';
+
+  var $newUserEl = $('#newUser');
+  // var newUserEl = document.getElementById('newUser');
+  $newUserEl.on('submit', function(e) {
+    newUser(e);
+  });
+  // newUserEl.addEventListener('submit', function(e) {newUser(e);},false);
+
+  var $existingButton = $('#existingButton');
+  // var existingButton = document.getElementById('existingButton');
+  $existingButton.on('click', function(e) {
+    returnUserForm(e);
+  });
+  return false;
 }
-function returnUserForm (event) {
-  document.getElementById('loginForm').innerHTML = '';
-  document.getElementById('loginForm').innerHTML = '<form name="loginform" class="whiteText" id="returnUser"><fieldset><legend>Returning User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Login"></fieldset></form><input class="button-primary" type="submit" value="Create New User" id="newButton">';
-  var returnUserEl = document.getElementById('returnUser');
-  returnUserEl.addEventListener('submit', function(e) {returnUser(e);},false);
-  var newButton = document.getElementById('newButton');
-  newButton.addEventListener('click', function(e) {newUserForm(e);},false);
+function returnUserForm (event){
+  $('#loginForm').empty();
+  // document.getElementById('loginForm').innerHTML = '';
+  $('#loginForm').append('<form name="loginform" class="whiteText" id="returnUser"><fieldset><legend>Returning User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Login"></fieldset></form><input class="button-primary" type="submit" value="Create New User" id="newButton">');
+  // document.getElementById('loginForm').innerHTML = '<form name="loginform" class="whiteText" id="returnUser"><fieldset><legend>Returning User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Login"></fieldset></form><input class="button-primary" type="submit" value="Create New User" id="newButton">';
+  var $returnUserEl = $('#returnUser');
+  $returnUserEl.on('submit', function(e) {
+    returnUser(e);
+  });
+  // var returnUserEl = document.getElementById('returnUser');
+  // returnUserEl.addEventListener('submit', function(e) {returnUser(e);},false);
+  var $newButton = $('#newButton');
+  $newButton.on('click', function(e) {
+    newUserForm(e);
+  });
 }
+//   var newButton = document.getElementById('newButton');
+//   newButton.addEventListener('click', function(e) {newUserForm(e);},false);
+// }
 function newUser(event) {
   event.preventDefault();
   var username = event.target.usr.value;
   var password = event.target.pword.value;
-  var msg = document.getElementById('msg');
+  var $msg = $('#msg');
+  // var msg = document.getElementById('msg');
   var library = [];
   var tags = [];
   var userExists = false;
   for (var i = 0; i < userLibrary.length; i++) {
     if (userLibrary[i].username === username) {
-      msg.textContent = "Username taken";
+      $msg.text('Username taken');
       userExists = true;
     }
   }
@@ -67,28 +94,31 @@ function newUser(event) {
     var x = userLibrary.length - 1;
     localStorage.setItem('userIndex', JSON.stringify(x));
     localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
-    window.location = "notes.html";
+    window.location = 'notes.html';
   }
 }
 function returnUser(event) {
   event.preventDefault();
   var username = event.target.usr.value;
   var password = event.target.pword.value;
-  var msg = document.getElementById('msg');
+  var $msg = $('#msg');
+  // var msg = document.getElementById('msg');
   var userExists = false;
+  // $('userLibrary').each(function(i) {
+  // userLibrary.prototype.forEach(function(i){
   for (var i = 0; i < userLibrary.length; i++) {
     if (userLibrary[i].username === username && userLibrary[i].password === password) {
-        NoteTracker.currentUser = userLibrary[i];
-        localStorage.setItem('userIndex', JSON.stringify(i));
-        localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
-        window.location = "notes.html";
-     }
+      NoteTracker.currentUser = userLibrary[i];
+      localStorage.setItem('userIndex', JSON.stringify(i));
+      localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
+      window.location = 'notes.html';
+    }
     if (userLibrary[i].username === username && userLibrary[i].password !== password) {
-        msg.textContent = "Incorrect Password";
-        userExists = true;
-     }
-   }
-   if (!userExists) {msg.textContent = "User Does Not Exist";}
+      $msg.text('Incorrect Password');
+      userExists = true;
+    }
+  }
+  if (!userExists) {$msg.text('User Does Not Exist');}
 }
 /***************OBJECT LITERAL******************/
 var NoteTracker = {
@@ -141,7 +171,7 @@ var NoteTracker = {
     for (var i = 0; i < tempTags.length; i++) {
       // if no other instances exist, then delete the tag from the user's tag library
       if (!this.checkTagExists(tempTags[i])) {
-          this.deleteTag(tempTags[i]);
+        this.deleteTag(tempTags[i]);
       }
     }
     localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
@@ -163,7 +193,7 @@ var NoteTracker = {
   },
   sendToBrowser: function (note) {
     var elList = document.createElement('li');    // new list element
-    elList.setAttribute('id',"counter" + note.noteIndex);
+    elList.setAttribute('id','counter' + note.noteIndex);
 
     var elTitle = document.createElement('p');    // note title
     elTitle.textContent = note.noteTitle;
@@ -181,25 +211,29 @@ var NoteTracker = {
     }
   },
   clearNoteBrowser: function () {
-    document.getElementById('noteList').innerHTML = '';
+    $('#noteList').empty();
+    // document.getElementById('noteList').innerHTML = '';
   },
   clearForm: function () {
-    document.getElementById('displayWindow').innerHTML = '';
+    $('#displayWindow').empty();
+    // document.getElementById('displayWindow').innerHTML = '';
   },
   clearNoteWrapper: function (){
-    document.getElementById('noteWrapper').innerHTML = '';
+    $('#noteWrapper').empty();
+    // document.getElementById('noteWrapper').innerHTML = '';
   },
   tagsDropDown: function() {
-      userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
-      var menu = '<form id="tagForm">Search By Tags: <select id="noteTags" onchange="NoteTracker.searchForTag(this.value)"><option class="tagColor" value="none">None</option>';
-      for (var i = 0; i < userLibrary[userIndex].tagLibrary.length; i++) {
-        menu += '<option class="tagColor" value="' + userLibrary[userIndex].tagLibrary[i] + '">' + userLibrary[userIndex].tagLibrary[i] + '</option>';
-      }
-      menu += '</select></form>';
+    userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
+    var menu = '<form id="tagForm">Search By Tags: <select id="noteTags" onchange="NoteTracker.searchForTag(this.value)"><option class="tagColor" value="none">None</option>';
+    for (var i = 0; i < userLibrary[userIndex].tagLibrary.length; i++) {
+      menu += '<option class="tagColor" value="' + userLibrary[userIndex].tagLibrary[i] + '">' + userLibrary[userIndex].tagLibrary[i] + '</option>';
+    }
+    menu += '</select></form>';
     return menu;
   },
   assignTags: function(){
-    var select = document.getElementById('multipleTags');
+    var select = $('#multipleTags');
+    // document.getElementById('multipleTags');
     var result = [];
     var options = select && select.options;
     var opt;
@@ -214,7 +248,8 @@ var NoteTracker = {
     userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
   },
   removeTags: function () {
-    var select = document.getElementById('multipleTags');
+    var select = $('#multipleTags');
+    // var select = document.getElementById('multipleTags');
     var result = [];
     var options = select && select.options;
     var opt;
@@ -241,48 +276,71 @@ var NoteTracker = {
   },
   createForm: function() {
     this.clearForm();
-    document.getElementById('displayWindow').innerHTML = '<form id="textInput" class="borders"><fieldset><legend>Create New Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" required="required" maxlength="66"/></textarea><label for="noteTag">Add a Tag</label><input type="text" name="noteTag"/><label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;" required="required"></textarea><input class="button-primary" type="submit" value="Create New Note"></fieldset></form>' + this.tagsDropDown();
-    newNoteInput = document.getElementById('textInput');
-    newNoteInput.addEventListener('submit', function(e) {NoteTracker.newNote(e);
-    NoteTracker.createForm();},false);
+    $('#displayWindow').append('<form id="textInput" class="borders"><fieldset><legend>Create New Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" required="required" maxlength="66"/></textarea><label for="noteTag">Add a Tag</label><input type="text" name="noteTag"/><label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;" required="required"></textarea><input class="button-primary" type="submit" value="Create New Note"></fieldset></form>' + this.tagsDropDown());
+    // document.getElementById('displayWindow').innerHTML = '<form id="textInput" class="borders"><fieldset><legend>Create New Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" required="required" maxlength="66"/></textarea><label for="noteTag">Add a Tag</label><input type="text" name="noteTag"/><label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;" required="required"></textarea><input class="button-primary" type="submit" value="Create New Note"></fieldset></form>' + this.tagsDropDown();
+    var $newNoteInput = $('#textInput');
+    $newNoteInput.on('submit', function(e) {
+      NoteTracker.newNote(e);
+      NoteTracker.createForm();
+    });
   },
+  //   newNoteInput = document.getElementById('textInput');
+  //   newNoteInput.addEventListener('submit', function(e) {NoteTracker.newNote(e);
+  //   NoteTracker.createForm();},false);
+  // },
   updateForm: function(e){
     userLibrary[userIndex].library[tempNoteId].noteTitle = e.target.noteTitle.value;
     userLibrary[userIndex].library[tempNoteId].noteContent = e.target.noteContent.value;
-      if (e.target.noteTag.value !== '') {
-        if (!NoteTracker.checkTagExists(e.target.noteTag.value)){
-          userLibrary[userIndex].library[tempNoteId].noteTags.push(e.target.noteTag.value);
-        }
-        if (userLibrary[userIndex].tagLibrary.indexOf(e.target.noteTag.value) === -1) {
-          userLibrary[userIndex].tagLibrary.push(e.target.noteTag.value);
-        }
+    if (e.target.noteTag.value !== '') {
+      if (!NoteTracker.checkTagExists(e.target.noteTag.value)){
+        userLibrary[userIndex].library[tempNoteId].noteTags.push(e.target.noteTag.value);
       }
-      localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
-      NoteTracker.createForm();
+      if (userLibrary[userIndex].tagLibrary.indexOf(e.target.noteTag.value) === -1) {
+        userLibrary[userIndex].tagLibrary.push(e.target.noteTag.value);
+      }
+    }
+    localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
+    NoteTracker.createForm();
   },
   editNote: function(e) {
     e.preventDefault();
     var noteID = tempNoteId;
     this.clearNoteWrapper();
-    document.getElementById('displayWindow').innerHTML = '<form id="textInput" class="borders"><fieldset><legend>Edit Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" maxlength="66">' + userLibrary[this.currentIndex].library[noteID].noteTitle + '</textarea><label for="noteTag">Add a New Tag</label><textarea name="noteTag"></textarea>' + '<label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</textarea><input class="button-primary" type="submit" value="Update Note"></fieldset></form>' + this.tagsMultipleSelect();
-    var newNoteInput = document.getElementById('textInput');
-    newNoteInput.addEventListener('submit', function(e) {NoteTracker.updateForm(e);},false);
+    $('#displayWindow').append('<form id="textInput" class="borders"><fieldset><legend>Edit Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" maxlength="66">' + userLibrary[this.currentIndex].library[noteID].noteTitle + '</textarea><label for="noteTag">Add a New Tag</label><textarea name="noteTag"></textarea>' + '<label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</textarea><input class="button-primary" type="submit" value="Update Note"></fieldset></form>' + this.tagsMultipleSelect());
+    // document.getElementById('displayWindow').innerHTML = '<form id="textInput" class="borders"><fieldset><legend>Edit Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" maxlength="66">' + userLibrary[this.currentIndex].library[noteID].noteTitle + '</textarea><label for="noteTag">Add a New Tag</label><textarea name="noteTag"></textarea>' + '<label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</textarea><input class="button-primary" type="submit" value="Update Note"></fieldset></form>' + this.tagsMultipleSelect();
+    var $newNoteInput = $('#textInput');
+    $newNoteInput.on('submit', function(e) { NoteTracker.updateForm(e);
+    });
   },
+    // var newNoteInput = document.getElementById('textInput');
+  //   newNoteInput.addEventListener('submit', function(e) {NoteTracker.updateForm(e);},false);
+  // },
   displayNote: function(noteID) {
     this.clearForm();
     tempNoteId = noteID;
-    document.getElementById('displayWindow').innerHTML = '<div id="noteWrapper" class="borders"><h4 class="labelColor">'+ userLibrary[this.currentIndex].library[noteID].noteTitle + '</h4><br/><br/><p class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</p><input class="button-primary navspacing" type="submit" value="Edit note" id="editbutton"><input class="button-primary navspacing" type="submit" value="Delete" id="deleteButton"><input class="button-primary navspacing" type="submit" value="New note" id="newNoteButton"></div>';
-    var editButton = document.getElementById('editbutton');
-    editButton.addEventListener('click', function(e){NoteTracker.editNote(e);}, false);
-    var deleteButton = document.getElementById('deleteButton');
-    deleteButton.addEventListener('click', function(e){NoteTracker.deleteNote(e);}, false);
-    var newNoteButton = document.getElementById('newNoteButton');
-    newNoteButton.addEventListener('click', function(e){NoteTracker.createForm();}, false);
+    $('#displayWindow').append('<div id="noteWrapper" class="borders"><h4 class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteTitle + '</h4><br/><br/><p class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</p><input class="button-primary navspacing" type="submit" value="Edit note" id="editbutton"><input class="button-primary navspacing" type="submit" value="Delete" id="deleteButton"><input class="button-primary navspacing" type="submit" value="New note" id="newNoteButton"></div>');
+    // document.getElementById('displayWindow').innerHTML = '<div id="noteWrapper" class="borders"><h4 class="labelColor">'+ userLibrary[this.currentIndex].library[noteID].noteTitle + '</h4><br/><br/><p class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</p><input class="button-primary navspacing" type="submit" value="Edit note" id="editbutton"><input class="button-primary navspacing" type="submit" value="Delete" id="deleteButton"><input class="button-primary navspacing" type="submit" value="New note" id="newNoteButton"></div>';
+    var $editButton = $('#editButton');
+    $editbutton.on('click', function(e){
+      NoteTracker.editNote(e);
+    });
+    // var editButton = document.getElementById('editbutton');
+    // editButton.addEventListener('click', function(e){NoteTracker.editNote(e);}, false);
+    var $deleteButton = $('#deleteButton');
+    $deleteButton.on('click', function(e){
+      NoteTracker.deleteNote(e);
+    });
+    // var deleteButton = document.getElementById('deleteButton');
+    // deleteButton.addEventListener('click', function(e){NoteTracker.deleteNote(e);}, false);
+    var $newNoteButton = $('#newNoteButton');
+    $newNoteButton.on('click', function(e){NoteTracker.createForm();});
+    // var newNoteButton = document.getElementById('newNoteButton');
+    // newNoteButton.addEventListener('click', function(e){NoteTracker.createForm();}, false);
 
   },
   searchForTag: function (tag) {
     NoteTracker.clearNoteBrowser();
-    if (tag === "none") {NoteTracker.sendAll();}
+    if (tag === 'none') {NoteTracker.sendAll();}
     var temp = [];
     for (var i = 0; i < userLibrary[userIndex].library.length; i++) {
       var x = userLibrary[userIndex].library[i];
@@ -297,7 +355,7 @@ var NoteTracker = {
   }
 };
 
-if (document.title === "Note Fellows") {
+if (document.title === 'Note Fellows') {
   NoteTracker.sendAll();
   NoteTracker.createForm();
 }
