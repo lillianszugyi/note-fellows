@@ -1,15 +1,16 @@
-Project Title:
-Note Fellows
+# Note-Fellows-2
+Refactoring Note Fellows past project.
 
-Contributors:
-Adam
-Jared
-Chris
-Kevin
-Connor
+Things to Try - implement .hide() .show()
+Elephant SQL with 2 tables for user and notes
 
-Version 1.0 release date:
-11/20/15
+Requirements:
+Use jQuery for all DOM and event listener code.
+Use templates wherever possible.
 
-known bugs:
-none
+Make good use of SMACSS principles.
+Use mobile-first principles where you can.
+Make the site responsive, for mobile and desktop.
+
+Persist any user-generated data and user selections.
+Use AJAX to load any significant data sources. - Cache data where appropriate.
